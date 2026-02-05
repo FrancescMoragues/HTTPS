@@ -1,0 +1,50 @@
+1. Para cumplir con la Segunda Parte de tu guía, he preparado un script robusto que automatiza la instalación de Apache, la generación del certificado autofirmado y la configuración del VirtualHost seguro.
+
+Este script asume que estás configurando el servidor de la "Intranet". He utilizado valores genéricos basados en tu guía que deberías ajustar según lo que hayas definido en la "Passa 1".
+
+Notas importantes para tu documentación (Wiki)
+
+2. Para completar la Passa 3 (Comprobación) y la Passa 4 (Documentación), ten en cuenta lo siguiente:
+
+Resolución de Nombres: Como es un entorno de intranet y el dominio intranet.primernomdedomini.com probablemente no existe en internet, debes añadir la IP del servidor al archivo /etc/hosts de tu máquina cliente:
+
+Ejemplo: 192.168.1.50 intranet.primernomdedomini.com
+
+Advertencia del Navegador: Al ser un certificado autofirmado, el navegador mostrará un aviso de "Conexión no privada". Es normal; para el ejercicio, simplemente debes aceptar el riesgo y continuar.
+
+Firewall: Si tienes ufw activado, recuerda permitir el tráfico HTTPS:
+
+sudo ufw allow 'Apache Full'
+
+3. Variables Críticas (Lo que cambia seguro)
+En cualquier script o configuración manual, tendrás que localizar y sustituir estos tres bloques:
+
+Identidad del Servidor:
+
+ServerName: El dominio principal (ej: www.examen.com).
+
+ServerAlias: Otros nombres (ej: examen.com o www2.examen.com).
+
+ServerAdmin: El correo que te pida el profesor.
+
+Rutas de Archivos:
+
+DocumentRoot: La carpeta donde están los .html. Asegúrate de que la ruta sea exactamente la que pida el enunciado (ej: /var/www/html/web1).
+
+Red y Seguridad:
+
+Require ip: Cambia la IP de red (ej: 192.168.10.0/24) por la de la VLAN que te asignen.
+
+SSLCertificateFile: Si es HTTPS, asegúrate de que la ruta apunte al archivo .crt que generes.
+
+2. Checklist para HTTPS (Certificados)
+Si el profesor te pide cambiar los datos del certificado (País, Organización, etc.), el comando clave es el openssl. Fíjate en el parámetro -subj:
+
+Bash
+# Ejemplo de lo que deberías editar:
+-subj "/C=ES/ST=Valencia/L=Alzira/O=Instituto/CN=intranet.tu-dominio.com"
+C: País (2 letras).
+
+ST: Provincia/Estado.
+
+CN (Common Name): ¡Ojo aquí! Debe ser el dominio exacto (ej: intranet.ejemplo.com). Si esto no coincide, el navegador dará error crítico.
