@@ -5,6 +5,34 @@ sudo apt purge apache2* -y
 sudo apt autoremove -y
 sudo rm -rf /var/www/appintranet /var/www/appsistema /srv/www/appintranet /srv/www/appsistema /etc/apache2/ssl
 
+COMPROBAR QUE FUNCIONA
+
+1) Estado del servicio: Ejecuta systemctl status apache2 para asegurarte de que está activo y sin errores tras el reinicio.
+
+Comprobación del puerto: Utiliza ss -tuln | grep :443 para verificar que el puerto 443 aparece en estado LISTEN, tal como se veía en tus capturas previas.
+
+2) Ejecuta: openssl x509 -in /etc/apache2/ssl/apache.crt -text -noout | grep "Subject".
+
+Resultado esperado: Deberías ver CN = www.intranet.kuy.com. Si sigue apareciendo "primernomdedomini", el certificado no se generó correctamente con las nuevas variables.
+
+3) Acceso al Directorio Privado: Entra desde un navegador a https://www.intranet.kuy.com/privado.
+
+Resultado esperado: El sistema debe pedirte usuario y contraseña. Prueba con Usuari01 y la contraseña 1234 definida en el script.
+
+Restricción de IP: Si intentas acceder desde una IP que no sea de la red 10.18.70.0/24 (ip de ejemplo), el servidor debería denegar el acceso (Error 403).
+
+4) Ejecución de Scripts: Accede a https://www.sistema.kuy.org/uptime.sh. Si el módulo CGI y los permisos están bien, verás el tiempo de actividad del servidor en el navegador.
+
+Prueba de Error 404: Intenta entrar en una URL que no exista (ej. https://www.intranet.kuy.com/noexiste).
+
+Resultado esperado: Debe aparecer el mensaje exacto: "Error en la aplicacion web appintranet - archivo no encontrado".
+
+5) Finalmente, verifica que los logs se están generando en las rutas solicitadas por la tabla:
+
+Mira el archivo de errores: tail -f /var/www/appintranet/logs/error.log
+
+
+
 1. Para cumplir con la Segunda Parte de tu guía, he preparado un script robusto que automatiza la instalación de Apache, la generación del certificado autofirmado y la configuración del VirtualHost seguro.
 
 Este script asume que estás configurando el servidor de la "Intranet". He utilizado valores genéricos basados en tu guía que deberías ajustar según lo que hayas definido en la "Passa 1".
