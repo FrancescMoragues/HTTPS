@@ -33,7 +33,7 @@ Mira el archivo de errores: tail -f /var/www/appintranet/logs/error.log
 
 IMPORTANTÍSIMO
 
-SERVIDOR
+SERVIDOR (esto solo si se usa el script 2)
 
 Una vez descargado todo, entra en sudo nano /etc/apache2/sites-available/appintranet-ssl.conf
                                             /etc/apache2/sites-available/appintranet-ssl.conf
@@ -51,7 +51,7 @@ Cambia esto
     </RequireAll>
 </Directory>
 
-CLIENTE LINUX
+CLIENTE LINUX (ESTO SIEMPRE)
 
 Abre la terminal del cliente linux y escribe: sudo nano /etc/hosts.
 
