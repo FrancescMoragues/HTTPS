@@ -36,7 +36,7 @@ IMPORTANTÍSIMO
 SERVIDOR
 
 Una vez descargado todo, entra en sudo nano /etc/apache2/sites-available/appintranet-ssl.conf
-
+                                            /etc/apache2/sites-available/appintranet-ssl.conf
 Cambia esto
 
 <Directory /srv/www/appintranet/privado>
