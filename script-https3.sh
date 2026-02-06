@@ -92,4 +92,4 @@ sudo chown -R www-data:www-data /var/www/ /srv/www/
 sudo a2ensite appintranet-ssl.conf appsistema-ssl.conf
 sudo systemctl restart apache2
 
-echo "✅ Script corregido y ejecutado. Prueba ahora en el navegador."
+echo "Script executat. Llest per a provar al navegador."
