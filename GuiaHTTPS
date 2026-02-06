@@ -33,6 +33,26 @@ Mira el archivo de errores: tail -f /var/www/appintranet/logs/error.log
 
 IMPORTANTÍSIMO
 
+SERVIDOR
+
+Una vez descargado todo, entra en sudo nano /etc/apache2/sites-available/appintranet-ssl.conf
+
+Cambia esto
+
+<Directory /srv/www/appintranet/privado>
+    AuthType Basic
+    AuthName "Acces Restringit Intranet"
+    AuthUserFile /etc/apache2/.htpasswd_intra
+    
+    # Esto obliga a que se cumplan AMBAS condiciones:
+    <RequireAll>
+        Require valid-user
+        Require ip 192.168.3.0/24
+    </RequireAll>
+</Directory>
+
+CLIENTE LINUX
+
 Abre la terminal del cliente linux y escribe: sudo nano /etc/hosts.
 
 Añade esta línea al final: 192.168.3.78 (ip del servidor) www.intranet.kuy.com www.sistema.kuy.org.
