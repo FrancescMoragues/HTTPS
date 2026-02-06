@@ -84,7 +84,7 @@ sudo bash -c "cat <<EOF > /etc/apache2/sites-available/appintranet-ssl.conf
         AuthName \"Acces Restringit Intranet\"
         AuthUserFile /etc/apache2/.htpasswd_intra
         Require valid-user
-        Require ip 127.0.0.1 10.18.70.0/24
+        Require ip 127.0.0.1 192.168.3.0/24
     </Directory>
 </VirtualHost>
 EOF"
